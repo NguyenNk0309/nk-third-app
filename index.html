@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .app-pc {
+        width: 100%;
+        height: 100vh;
+        background-color: pink;
+        display: flex;
+        position: relative;
+      }
+
+      .content {
+        margin: auto;
+        animation: appear 0.5s linear;
+      }
+
+      .btn {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 12px;
+      }
+
+      .btn-child {
+        padding: 24px 32px;
+        cursor: pointer;
+        background-color: rgb(243, 47, 80);
+        border-radius: 5px;
+        border: 3px solid rgb(95, 12, 12);
+        font-size: 14px;
+        color: white;
+        font-weight: 600;
+      }
+
+      .btn-no {
+        position: relative;
+      }
+
+      .btn-yes:hover {
+        opacity: 0.9;
+      }
+
+      .app-mobile {
+        background-color: pink;
+        display: flex;
+        height: 100vh;
+      }
+
+      .app-mobile h1 {
+        margin: auto;
+      }
+
+      .modal {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        display: none;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      .modal-content {
+        margin: auto;
+        width: 40%;
+        height: 70%;
+        background-color: pink;
+        border-radius: 10px;
+        border: 2px solid red;
+      }
+
+      .modal-content h1 {
+        text-align: center;
+      }
+
+      .modal-content p {
+        margin-top: 12px;
+        font-size: 24px;
+        padding: 12px;
+      }
+
+      @keyframes appear {
+        from {
+          transform: translateY(-200px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @media only screen and (min-width: 1024px) {
+        .app-pc {
+          display: flex;
+        }
+
+        .app-mobile {
+          display: none;
+        }
+      }
+
+      @media only screen and (max-width: 1023px) {
+        .app-pc {
+          display: none;
+        }
+
+        .app-mobile {
+          display: flex;
+        }
+      }
+    </style>
+    <div class="app-pc">
+      <div class="content">
+        <h1 class="heading">Do You Love Me ?</h1>
+        <div class="btn">
+          <button class="btn-child btn-yes">YES</button>
+          <button class="btn-child btn-no">NO</button>
+        </div>
+      </div>
+
+      <div class="modal">
+        <div class="modal-content">
+          <!-- ! test here -->
+          <h1>I Love You Too</h1>
+          <p></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-mobile">
+      <h1>Sorry, this app is not support in this device</h1>
+    </div>
+
+    <script>
+      let currentPositionX = 0;
+      let currentPositionY = 0;
+      const yesBtn = document.querySelector(".btn-yes");
+      const noBtn = document.querySelector(".btn-no");
+      const modal = document.querySelector(".modal");
+      const modalContent = document.querySelector(".modal-content");
+
+      let isModalOpen = false;
+
+      noBtn.onmouseover = function move() {
+        let newPositionX = currentPositionX;
+        let newPositionY = currentPositionY;
+        while (
+          newPositionX === currentPositionX &&
+          newPositionY === currentPositionY
+        ) {
+          currentPositionX = Math.floor(
+            Math.random() * (530 + 1 - -645) + -645
+          );
+          currentPositionY = Math.floor(
+            Math.random() * (230 + 1 - -300) + -300
+          );
+        }
+        noBtn.style.top = `${currentPositionY}px`;
+        noBtn.style.left = `${currentPositionX}px`;
+      };
+
+      yesBtn.onclick = function () {
+        if (isModalOpen === false) {
+          isModalOpen = true;
+          modal.style.display = "flex";
+        }
+      };
+
+      modal.onclick = function (e) {
+        if (isModalOpen === true) {
+          isModalOpen = false;
+          modal.style.display = "none";
+        }
+      };
+
+      modalContent.onclick = function (e) {
+          e.stopPropagation();
+        };
+    </script>
+  </body>
+</html>
