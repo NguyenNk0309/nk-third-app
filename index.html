@@ -80,6 +80,7 @@
         background-color: pink;
         border-radius: 10px;
         border: 2px solid red;
+        opacity: 0;
       }
 
       .modal-content h1 {
@@ -99,6 +100,39 @@
         }
         to {
           transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .name{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        right: 50px;
+        bottom: 50px;
+        animation: fade 1s linear;
+      }
+
+      .name a{
+        display: block;
+        margin-left: 8px;
+      }
+
+      .name a img{
+        margin-top: 4px;
+        width: 40px;
+        height: 40  px;
+      }
+
+      .name h2{
+        color: #333;
+      }
+
+      @keyframes fade{
+        from{
+          opacity: 0;
+        }
+        to{
           opacity: 1;
         }
       }
@@ -130,6 +164,11 @@
           <button class="btn-child btn-yes">YES</button>
           <button class="btn-child btn-no">NO</button>
         </div>
+      </div>
+
+      <div class="name">
+        <h2>Made by</h2>
+        <a href="https://www.facebook.com/profile.php?id=100006214334713" target="_blank"><img src="./NK-icon.png" alt=""></a>
       </div>
 
       <div class="modal">
@@ -177,13 +216,20 @@
         if (isModalOpen === false) {
           isModalOpen = true;
           modal.style.display = "flex";
+          modalContent.style.transition = "all 0.2s ease"
+          setTimeout(function () {
+            modalContent.style.opacity = "1";
+          },200)
         }
       };
 
       modal.onclick = function (e) {
         if (isModalOpen === true) {
           isModalOpen = false;
-          modal.style.display = "none";
+          modalContent.style.opacity = "0";
+          setTimeout(function () {
+            modal.style.display = "none";
+          },200)
         }
       };
 
